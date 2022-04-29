@@ -1,5 +1,4 @@
-package net.silthus.template;
-
+package net.helix.bennis;
 import co.aikar.commands.PaperCommandManager;
 import kr.entree.spigradle.annotations.PluginMain;
 import lombok.AccessLevel;
@@ -24,22 +23,16 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.Objects;
 
-//@PluginMain
-public class TemplatePlugin extends JavaPlugin implements Listener {
-
-    @Getter
-    @Accessors(fluent = true)
-    private static TemplatePlugin instance;
-    @Getter
-    @Setter(AccessLevel.PACKAGE)
-    private VaultProvider vault;
+@PluginMain
+public class GiftSearchPlugin  extends JavaPlugin implements Listener {
+    private static GiftSearchPlugin instance;
     private PaperCommandManager commandManager;
 
-    public TemplatePlugin() {
+    public GiftSearchPlugin {
         instance = this;
     }
 
-    public TemplatePlugin(
+    public GiftSearchPlugin(
             JavaPluginLoader loader, PluginDescriptionFile description, File dataFolder, File file) {
         super(loader, description, dataFolder, file);
         instance = this;
@@ -48,24 +41,9 @@ public class TemplatePlugin extends JavaPlugin implements Listener {
     @Override
     public void onEnable() {
         saveDefaultConfig();
-
-        setupVaultIntegration();
         setupCommands();
 
         getServer().getPluginManager().registerEvents(this, this);
-    }
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        getLogger().info("Player joined.");
-    }
-
-    private void setupVaultIntegration() {
-        if (Bukkit.getPluginManager().isPluginEnabled("Vault")) {
-            vault = new VaultProvider(Objects.requireNonNull(getServer().getServicesManager().getRegistration(Economy.class)).getProvider());
-        } else {
-            vault = new VaultProvider();
-        }
     }
 
     private void setupCommands() {
@@ -75,19 +53,5 @@ public class TemplatePlugin extends JavaPlugin implements Listener {
         loadCommandLocales(commandManager);
 
         commandManager.registerCommand(new TemplateCommands());
-    }
-
-    // see https://github.com/aikar/commands/wiki/Locales
-    private void loadCommandLocales(PaperCommandManager commandManager) {
-        try {
-            saveResource("lang_en.yaml", true);
-            commandManager.getLocales().setDefaultLocale(Locale.ENGLISH);
-            commandManager.getLocales().loadYamlLanguageFile("lang_en.yaml", Locale.ENGLISH);
-            // this will detect the client locale and use it where possible
-            commandManager.usePerIssuerLocale(true);
-        } catch (IOException | InvalidConfigurationException e) {
-            getLogger().severe("Failed to load language config 'lang_en.yaml': " + e.getMessage());
-            e.printStackTrace();
-        }
     }
 }
