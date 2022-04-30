@@ -28,7 +28,7 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
     private static GiftSearchPlugin instance;
     private PaperCommandManager commandManager;
 
-    public GiftSearchPlugin {
+    public GiftSearchPlugin (){
         instance = this;
     }
 
@@ -53,5 +53,18 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
         loadCommandLocales(commandManager);
 
         commandManager.registerCommand(new TemplateCommands());
+    }
+
+    private void loadCommandLocales(PaperCommandManager commandManager) {
+        try {
+            saveResource("lang_en.yaml", true);
+            commandManager.getLocales().setDefaultLocale(Locale.ENGLISH);
+            commandManager.getLocales().loadYamlLanguageFile("lang_en.yaml", Locale.ENGLISH);
+            // this will detect the client locale and use it where possible
+            commandManager.usePerIssuerLocale(true);
+        } catch (IOException | InvalidConfigurationException e) {
+            getLogger().severe("Failed to load language config 'lang_en.yaml': " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

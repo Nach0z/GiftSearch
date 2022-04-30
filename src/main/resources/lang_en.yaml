@@ -1,5 +1,9 @@
 # See https://github.com/aikar/commands/wiki/Locales
 commands:
   descriptions:
-    info: 'Prints out the players name and play time.'
-  info: 'Your name is: {player}. Playtime: {play_time}.'
+    list: 'Lists all findable gifts.'
+    closest: 'Finds the closest block to the player.'
+    remove: 'removes the gift specified by the X/Y/Z coords provided.'
+  list: 'Finding all gift blocks...'
+  closest: 'The nearest gift is at {loc_x}/{loc_y}/{loc_z}'
+  remove: 'Removed the gift at {loc_x}/{loc_y}/{loc_z}'

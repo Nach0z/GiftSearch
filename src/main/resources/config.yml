@@ -1,1 +1,7 @@
 # add your configuration properties here
+sql-database-host: "localhost"
+sql-database-port: "1433"
+sql-database-user: "test"
+sql-database-passwd: "banananana"
+sql-database-name: "HelixDB"
+sql-database-is-integrated-security: false
