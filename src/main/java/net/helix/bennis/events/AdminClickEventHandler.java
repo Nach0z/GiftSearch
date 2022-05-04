@@ -2,11 +2,13 @@ package net.helix.bennis.events;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.*;
 
-public class AdminClickEventHandler {
+public class AdminClickEventHandler implements Listener {
     // event handlers should exit as soon as possible.
     // Checks are handled in the order most likely to quickly exit while performing the fewest operations.
     // i.e. even though the most common kinds of events are usually digging & killing things (left-click events),
@@ -14,7 +16,8 @@ public class AdminClickEventHandler {
     // event. So the first thing we check is, are they using a player head. That should fail nearly always except in
     // very limited situations where someone is doing decor, and they're not going to place thousands of these quickly
     // in that situation.
-    public static void onEvent(PlayerInteractEvent event){
+    @EventHandler
+    public void onEvent(PlayerInteractEvent event){
         // if it's not a player head we don't care about it. Return.
         if(event.getItem().getType() != Material.PLAYER_HEAD) return;
         // if they aren't right-clicking a block, return.

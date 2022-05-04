@@ -1,16 +1,18 @@
 package net.helix.bennis.events;
 
 import org.bukkit.Material;
-import org.bukkit.block.Block;
+import org.bukkit.event.*;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
-public class PlayerClickEventHandler {
+public class PlayerClickEventHandler implements Listener {
     // Just as in the AdminClickEventHandler we should do as much filtering as fast as possible in the fewest operations
     // for optimization, as this hooks into *every* dig/attack/place event by every player on the server.
 
-    public static void onEvent(PlayerInteractEvent event) {
+    @EventHandler
+    public void onEvent(PlayerInteractEvent event) {
         // we literally only care if the block interacted with is a player head that's been placed on the floor
         // or on the wall, technically. If it's not one of these it's not a giftbox so we can return fast.
         // if clickedBlock is null, return immediately because no block means no handle.

@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.helix.bennis.commands.GiftSearchCommands;
+import net.helix.bennis.events.AdminBlockPlaceEventHandler;
 import net.helix.bennis.events.AdminClickEventHandler;
+import net.helix.bennis.events.PlayerBlockBreakEventHandler;
 import net.helix.bennis.events.PlayerClickEventHandler;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
@@ -46,24 +48,27 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
         instance = this;
     }
 
-    @EventHandler
+    /* @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
         AdminClickEventHandler.onEvent(event);
         PlayerClickEventHandler.onEvent(event);
-    }
+    }*/
 
     @Override
     public void onEnable() {
-        getLogger().log(Level.SEVERE, "entered onEnable");
         saveDefaultConfig();
-        getLogger().log(Level.SEVERE, "savedDefaultConfig");
         setupCommands();
-        getLogger().log(Level.SEVERE, "setupCommands");
 
-        getServer().getPluginManager().registerEvents(this, this);
-        getLogger().log(Level.SEVERE, "registeredEvents");
+        registerEvents();
     }
 
+    private void registerEvents() {
+        getServer().getPluginManager().registerEvents(this, this);
+        getServer().getPluginManager().registerEvents(new AdminClickEventHandler(), this);
+        getServer().getPluginManager().registerEvents(new PlayerClickEventHandler(), this);
+        getServer().getPluginManager().registerEvents(new PlayerBlockBreakEventHandler(), this);
+        getServer().getPluginManager().registerEvents(new AdminBlockPlaceEventHandler(), this);
+    }
     private void setupCommands() {
         commandManager = new PaperCommandManager(this);
         commandManager.enableUnstableAPI("help");
