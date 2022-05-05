@@ -23,20 +23,18 @@ public class AdminClickEventHandler implements Listener {
         // if they aren't right-clicking a block, return.
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 
-        ItemStack playerHead = event.getItem();
-        // if the player head doesn't have data, we don't care. Return.
+        if(!event.getItem().hasItemMeta()) return;
 
-        // TODO: Uncomment this.
-        // if(playerHead.getData() == null) return;
+        ItemStack playerHead = event.getItem();
         // At this point, once we get here, we're pretty sure that we're actually talking about the GiftSearch admin
         // functions and we've done great filtering so we don't have to be so performance-optimized anymore.
 
-
+        return;
         // this is the first variable assignment because we don't want to cause a memory leak and we don't want to
         // force GC to work harder with more random floating memory references.
-        Player p = event.getPlayer();
-        if(playerHead.hasItemMeta())
-            p.sendMessage("Admin event - Item data: ", playerHead.getItemMeta().toString());
+//        Player p = event.getPlayer();
+//        if(playerHead.hasItemMeta())
+//            p.sendMessage("Admin event - Item data: ", playerHead.getItemMeta().toString());
 
     }
 

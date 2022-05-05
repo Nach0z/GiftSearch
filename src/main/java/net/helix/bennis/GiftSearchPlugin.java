@@ -8,6 +8,7 @@ import lombok.experimental.Accessors;
 import net.helix.bennis.commands.GiftSearchCommands;
 import net.helix.bennis.events.*;
 import net.helix.bennis.util.BlockLocationMemCache;
+import net.helix.bennis.util.skins.SkinManager;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 // import net.silthus.template.integrations.vault.VaultProvider;
@@ -59,6 +60,7 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
 
         registerEvents();
         BlockLocationMemCache.setRenderRadius(getServer().getViewDistance());
+        SkinManager.init(getConfig());
     }
 
     private void registerEvents() {
