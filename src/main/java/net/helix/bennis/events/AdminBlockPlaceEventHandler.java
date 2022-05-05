@@ -1,6 +1,7 @@
 package net.helix.bennis.events;
 
 import net.helix.bennis.GiftSearchPlugin;
+import net.helix.bennis.util.BlockLocationMemCache;
 import net.helix.bennis.util.Constants;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -39,6 +40,7 @@ public class AdminBlockPlaceEventHandler implements Listener {
 //        event.getPlayer().sendMessage("bp6");
         MetadataValue mv = new FixedMetadataValue(GiftSearchPlugin.getPlugin(), true);
         event.getBlockPlaced().setMetadata("isGiftBlock", mv);
+        BlockLocationMemCache.addBlock(event.getBlockPlaced().getLocation(), event.getBlockPlaced());
 //        event.getPlayer().sendMessage("placed block");
     }
 }

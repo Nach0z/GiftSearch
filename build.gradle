@@ -77,6 +77,9 @@ dependencies {
     // MySQL JDBC
     // https://mvnrepository.com/artifact/mysql/mysql-connector-java
     implementation 'mysql:mysql-connector-java:8.0.29'
+    // https://mvnrepository.com/artifact/org.javatuples/javatuples
+    implementation 'org.javatuples:javatuples:1.2'
+
 
     // Test dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
@@ -89,9 +92,11 @@ shadowJar {
     classifier = ''
     dependencies {
         include(dependency('co.aikar:acf-paper:0.5.1-SNAPSHOT'))
+        include(dependency('org.javatuples:javatuples:1.2'))
     }
     relocate 'co.aikar.commands', "${packageName}.acf"
     relocate 'co.aikar.locales', "${packageName}.locales"
+    relocate 'org.javatuples', "${packageName}.tuples"
 }
 
 tasks.build.dependsOn(shadowJar)

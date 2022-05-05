@@ -6,10 +6,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import net.helix.bennis.commands.GiftSearchCommands;
-import net.helix.bennis.events.AdminBlockPlaceEventHandler;
-import net.helix.bennis.events.AdminClickEventHandler;
-import net.helix.bennis.events.PlayerBlockBreakEventHandler;
-import net.helix.bennis.events.PlayerClickEventHandler;
+import net.helix.bennis.events.*;
+import net.helix.bennis.util.BlockLocationMemCache;
 import net.milkbowl.vault.chat.Chat;
 import net.milkbowl.vault.economy.Economy;
 // import net.silthus.template.integrations.vault.VaultProvider;
@@ -60,6 +58,7 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
         setupCommands();
 
         registerEvents();
+        BlockLocationMemCache.setRenderRadius(getServer().getViewDistance());
     }
 
     private void registerEvents() {
@@ -68,6 +67,7 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
         getServer().getPluginManager().registerEvents(new PlayerClickEventHandler(), this);
         getServer().getPluginManager().registerEvents(new PlayerBlockBreakEventHandler(), this);
         getServer().getPluginManager().registerEvents(new AdminBlockPlaceEventHandler(), this);
+        getServer().getPluginManager().registerEvents(new PlayerMoveEventHandler(), this);
     }
     private void setupCommands() {
         commandManager = new PaperCommandManager(this);

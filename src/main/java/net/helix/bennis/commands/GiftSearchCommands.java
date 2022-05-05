@@ -43,6 +43,8 @@ public class GiftSearchCommands extends BaseCommand     {
         PersistentDataContainer container = toolMeta.getPersistentDataContainer();
         container.set(new NamespacedKey(GiftSearchPlugin.getPlugin(), "giftBlock"), new BooleanTagType(), true);
         PlayerProfile textureProfile = GiftSearchPlugin.getPlugin().getServer().createProfile(UUID.fromString("d998969d-fa16-4612-a85d-bebb39171447"));
+
+        // TODO make a SkinManager class and use getPlugin().getConfig() to pull out "present.closed" and "present.open" skin values
         ProfileProperty textureProperty = new ProfileProperty("textures", "eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvOTNlZDg3OTlkMDdiOGUyZGEyNTU3YzNmMDU5OGZkYWVkOTQ0Mzc2ODI2ZjFkMmNlYjY3MGZkNjUxYjJjZDE2NiJ9fX0=");
         textureProfile.setProperty(textureProperty);
         toolMeta.setPlayerProfile(textureProfile);
