@@ -39,6 +39,7 @@ spigot {
     load = STARTUP
     // depends = ['']
     softDepends = ['Vault']
+    depends = ['ProtocolLib']
 }
 
 compileJava {
@@ -59,6 +60,7 @@ repositories {
     maven { url = 'https://repo.dmulloy2.net/repository/public/' }
     maven { url = 'https://hub.spigotmc.org/nexus/content/repositories/public/' }
     maven { url = 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url = "https://repo.dmulloy2.net/repository/public/" }
 }
 
 dependencies {
@@ -79,7 +81,7 @@ dependencies {
     implementation 'mysql:mysql-connector-java:8.0.29'
     // https://mvnrepository.com/artifact/org.javatuples/javatuples
     implementation 'org.javatuples:javatuples:1.2'
-
+    compileOnly  "com.comphenix.protocol:ProtocolLib:4.8.0";
 
     // Test dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
@@ -93,6 +95,7 @@ shadowJar {
     dependencies {
         include(dependency('co.aikar:acf-paper:0.5.1-SNAPSHOT'))
         include(dependency('org.javatuples:javatuples:1.2'))
+//        include(dependency('com.comphenix.protocol:ProtocolLib:4.7.0'))
     }
     relocate 'co.aikar.commands', "${packageName}.acf"
     relocate 'co.aikar.locales', "${packageName}.locales"

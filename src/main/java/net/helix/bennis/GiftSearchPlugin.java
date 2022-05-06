@@ -1,5 +1,11 @@
 package net.helix.bennis;
 import co.aikar.commands.PaperCommandManager;
+import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.ProtocolLibrary;
+import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
+import com.comphenix.protocol.events.PacketEvent;
 import kr.entree.spigradle.annotations.PluginMain;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -61,6 +67,20 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
         registerEvents();
         BlockLocationMemCache.setRenderRadius(getServer().getViewDistance());
         SkinManager.init(getConfig());
+
+        registerPacketListener();
+
+    }
+
+    private void registerPacketListener() {
+        ProtocolManager manager = ProtocolLibrary.getProtocolManager();
+        manager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Server.TILE_ENTITY_DATA) {
+            @Override
+            public void onPacketSending(PacketEvent event) {
+                event.getPlayer().sendMessage("Tile entity updated: " + event.getPacket().toString());
+                super.onPacketSending(event);
+            }
+        });
     }
 
     private void registerEvents() {

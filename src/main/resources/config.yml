@@ -10,3 +10,15 @@ presents:
     red:
       open: "275d13ca14bcbbd1cde21aa06600101e456d318aadf178b2793678b494f6dce8"
       closed: "6cef9aa14e884773eac134a4ee8972063f466de678363cf7b1a21a85b7"
+    gold:
+      open: "bfe732b3ecb2fabc038fb06db8c53a7ffb030db92544e1b2256f01cb2eb822b7"
+      closed: "8c9fd224ee2dc7c84556c9c2e82a2d95d1ae355c79af7b5859b95138c25cf918"
+    green:
+      open: "a22a1c6626740a1191d052095a8e6aeb56f98b386d2ffe887cf9336e6b19c9cb"
+      closed: "f73b8769b461e865cb85d0e05a348cc412ec701b8fca99dd5d464c9e27f9b440"
+    gray:
+      open: "a43100abf01a1fe05eaf7e0904a0acd9bc338b0ee67b890aa67053ee672e6679"
+      closed: "5f2b3f7cdb59394a0c82fe67e672842d755ce8e8eddaeeb9b5cc173b5501e8d6"
+    red2:
+      open: "2ea87a6641b21dbb31b04ad5fead5e3e033bb91fbe832b7c712a88618944"
+      closed: "2a236de4602d24d3f2aeb8a4227d30b15ebba81f8b64cbc59aebe172154"
