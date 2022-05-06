@@ -1,9 +1,14 @@
 package net.helix.bennis.util.skins;
 
+import com.destroystokyo.paper.profile.PlayerProfile;
 import net.helix.bennis.GiftSearchPlugin;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.profile.PlayerTextures;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,17 +39,15 @@ public class SkinManager {
         return (String) pluginSkins.keySet().toArray()[new Random().nextInt(pluginSkins.size())];
     }
 
-    public static SkinPair getRandomFromGroup(String groupName) {
-        GiftSearchPlugin.getPlugin().getLogger().log(Level.SEVERE, "Getting skins for group " + groupName);
+    public static SkinPair getRandomSkinPairFromGroup(String groupName) {
         Set<SkinPair> skinSet = pluginSkins.get(groupName);
-        GiftSearchPlugin.getPlugin().getLogger().log(Level.SEVERE, "Got skin count: " + skinSet.size());
         int rand = new Random().nextInt(skinSet.size());
-        GiftSearchPlugin.getPlugin().getLogger().log(Level.SEVERE, "Got rand int: " + rand);
         SkinPair foundPair = (SkinPair) skinSet.toArray()[rand];
-        GiftSearchPlugin.getPlugin().getLogger().log(Level.SEVERE, "Selected skinpair: " + foundPair.getSkinName());
-        GiftSearchPlugin.getPlugin().getLogger().log(Level.SEVERE, "Opened: " + foundPair.getOpened());
-        GiftSearchPlugin.getPlugin().getLogger().log(Level.SEVERE, "Closed: " + foundPair.getClosed());
         return (SkinPair) skinSet.toArray()[rand];
+    }
+
+    public static String getRandomSkinNameFromGroup(String groupName) {
+        return getRandomSkinPairFromGroup(groupName).getSkinName();
     }
 
     public static SkinPair getNamedFromGroup(String groupName, String presentName) {
@@ -55,5 +58,27 @@ public class SkinManager {
 
     public static Set<String> getAllGroups() {
         return pluginSkins.keySet();
+    }
+
+    public static PlayerProfile getNewClosedProfile(String groupName, String presentName) {
+        return getNewPlayerProfile(groupName, presentName, true);
+    }
+
+    public static PlayerProfile getNewOpenedProfile(String groupName, String presentName) {
+        return getNewPlayerProfile(groupName, presentName, false);
+    }
+
+
+    public static PlayerProfile getNewPlayerProfile(String groupName, String presentName, boolean isClosed) {
+        PlayerProfile newProfile = Bukkit.createProfile(UUID.randomUUID());
+        try {
+            PlayerTextures textures = newProfile.getTextures();
+            SkinPair namedPair = getNamedFromGroup(groupName, presentName);
+            textures.setSkin(new URL(isClosed ? namedPair.getClosed() : namedPair.getOpened()));
+            newProfile.setTextures(textures);
+        } catch (MalformedURLException murlex) {
+            GiftSearchPlugin.getPlugin().getLogger().log(Level.SEVERE, "Malformed playerhead URL: ");
+        }
+        return newProfile;
     }
 }

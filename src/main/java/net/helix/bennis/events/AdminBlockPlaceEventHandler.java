@@ -10,6 +10,7 @@ import net.helix.bennis.util.skins.SkinURL;
 import net.helix.bennis.util.tags.StringTagType;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -37,32 +38,29 @@ public class AdminBlockPlaceEventHandler implements Listener {
         if(!handItem.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(GiftSearchPlugin.getPlugin(), METADATA_IS_GIFTBLOCK)))
             return;
         String groupName = SkinManager.getRandomGroupName();
-        event.getPlayer().sendMessage("Selected random group: " + groupName);
+//        event.getPlayer().sendMessage("Selected random group: " + groupName);
         if(handItem.getItemMeta().getPersistentDataContainer().has(new NamespacedKey(GiftSearchPlugin.getPlugin(), METADATA_GIFTBLOCK_GROUP)))
         {
             StringTagType groupStringTag = new StringTagType();
             groupName = handItem.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(GiftSearchPlugin.getPlugin(), METADATA_GIFTBLOCK_GROUP), groupStringTag);
-            event.getPlayer().sendMessage("Overrode default group using tool item group: " + groupName);
+//            event.getPlayer().sendMessage("Overrode default group using tool item group: " + groupName);
         }
-
+        Block headBlock = event.getBlockPlaced();
         MetadataValue mv = new FixedMetadataValue(GiftSearchPlugin.getPlugin(), true);
         MetadataValue mv2 = new FixedMetadataValue(GiftSearchPlugin.getPlugin(), groupName);
-        event.getBlockPlaced().setMetadata(METADATA_IS_GIFTBLOCK, mv);
-        event.getBlockPlaced().setMetadata(METADATA_GIFTBLOCK_GROUP, mv2);
-        event.getPlayer().sendMessage("placed block metadata set");
-        Skull blockSkull = (Skull)event.getBlockPlaced().getState();
-        SkinPair skin = SkinManager.getRandomFromGroup(groupName);
-        event.getPlayer().sendMessage("Picked random skin from group: " + skin.getSkinName());
-        PlayerProfile skinProfile = blockSkull.getPlayerProfile();
-        PlayerTextures skinTextures = skinProfile.getTextures();
-        skinTextures.setSkin(new URL(SkinURL.GetUrl(skin.getClosed())));
-        skinProfile.setTextures(skinTextures);
-        blockSkull.setPlayerProfile(skinProfile);
-        event.getPlayer().sendMessage("Set block skin");
-        event.getBlockPlaced().getState().update(true);
-        event.getPlayer().sendMessage("updated block");
+        headBlock.setMetadata(METADATA_IS_GIFTBLOCK, mv);
+        headBlock.setMetadata(METADATA_GIFTBLOCK_GROUP, mv2);
+//        event.getPlayer().sendMessage("placed block metadata set");
+
+        Skull headSkull = (Skull) headBlock.getState(); //.getWorld().getBlockAt(headBlock.getLocation()).getState();
+        headBlock.setType(Material.PLAYER_HEAD);
+        String skin = SkinManager.getRandomSkinNameFromGroup(groupName);
+        PlayerProfile skinProfile = SkinManager.getNewClosedProfile(groupName, skin);
+        headSkull.setPlayerProfile(skinProfile);
+        headSkull.update();
+//        player.sendMessage("Update success: " + headSkull.update(false));
 //        event.getPlayer().sendMessage(blockSkull.getMetadata("SkullOwner").toString());
         BlockLocationMemCache.addBlock(event.getBlockPlaced().getLocation(), event.getBlockPlaced());
-        event.getPlayer().sendMessage("Added block to cache");
+//        event.getPlayer().sendMessage("Added block to cache");
     }
 }

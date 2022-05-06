@@ -73,27 +73,18 @@ public class GiftSearchCommands extends BaseCommand     {
         SkinManager.getAllGroups().forEach(x -> player.sendMessage(LIST_ITEM_PREFIX + x));
     }
 
-    @Subcommand("hilight")
+    /*@Subcommand("hilight")
     @CommandPermission(ADMIN_PERMISSION)
     public void hilight(@Flags("self") Player player) throws MalformedURLException {
         Set<Block> nearbyBlocks = BlockLocationMemCache.getBlocksWithinChunkRadius(player.getChunk(), 2);
         for(Block headBlock : nearbyBlocks){
             Skull headSkull = (Skull) headBlock.getWorld().getBlockAt(headBlock.getLocation()).getState();
             headBlock.getWorld().getBlockAt(headBlock.getLocation()).setType(Material.PLAYER_HEAD);
-            SkinPair skin = SkinManager.getRandomFromGroup("christmas");
-            player.sendMessage("Picked random skin from group: " + skin.getSkinName());
-            PlayerProfile skinProfile = headSkull.getPlayerProfile();
-            PlayerTextures skinTextures = skinProfile.getTextures();
-            skinTextures.setSkin(new URL(skin.getClosed()));
-            player.sendMessage(new URL(skin.getClosed()).toString());
-//            ProfileProperty idProperty = new ProfileProperty("Id", UUID.randomUUID().toString());
-            skinProfile.setTextures(skinTextures);
-//            skinProfile.setProperty(idProperty);
-//            headSkull.setPlayerProfile(skinProfile);
-            headSkull.setOwnerProfile(skinProfile);
+            String skin = SkinManager.getRandomSkinNameFromGroup("christmas");
+            PlayerProfile skinProfile = SkinManager.getNewClosedProfile("christmas", skin);
+            headSkull.setPlayerProfile(skinProfile);
             player.sendMessage("Update success: " + headSkull.update(false));
-
         }
-    }
+    }*/
 
 }

@@ -19,6 +19,7 @@ public class AdminClickEventHandler implements Listener {
     @EventHandler
     public void onEvent(PlayerInteractEvent event){
         // if it's not a player head we don't care about it. Return.
+        if(event.getItem() == null) return;
         if(event.getItem().getType() != Material.PLAYER_HEAD) return;
         // if they aren't right-clicking a block, return.
         if(event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
