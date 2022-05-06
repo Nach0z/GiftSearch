@@ -8,11 +8,15 @@ import com.destroystokyo.paper.Namespaced;
 import com.destroystokyo.paper.profile.PlayerProfile;
 import com.destroystokyo.paper.profile.ProfileProperty;
 import net.helix.bennis.GiftSearchPlugin;
+import net.helix.bennis.util.BlockLocationMemCache;
 import net.helix.bennis.util.skins.SkinManager;
+import net.helix.bennis.util.skins.SkinPair;
+import net.helix.bennis.util.skins.SkinURL;
 import net.helix.bennis.util.tags.BooleanTagType;
 import net.helix.bennis.util.tags.StringTagType;
 import org.bukkit.*;
 import org.bukkit.block.Block;
+import org.bukkit.block.Skull;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -23,6 +27,9 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerTextures;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.Set;
 import java.util.UUID;
 
 import static net.helix.bennis.util.Constants.*;
@@ -64,6 +71,29 @@ public class GiftSearchCommands extends BaseCommand     {
     public void groups(@Flags("self") Player player) {
         player.sendMessage(MESSAGE_PREFIX + "Available gift search groups:");
         SkinManager.getAllGroups().forEach(x -> player.sendMessage(LIST_ITEM_PREFIX + x));
+    }
+
+    @Subcommand("hilight")
+    @CommandPermission(ADMIN_PERMISSION)
+    public void hilight(@Flags("self") Player player) throws MalformedURLException {
+        Set<Block> nearbyBlocks = BlockLocationMemCache.getBlocksWithinChunkRadius(player.getChunk(), 2);
+        for(Block headBlock : nearbyBlocks){
+            Skull headSkull = (Skull) headBlock.getWorld().getBlockAt(headBlock.getLocation()).getState();
+            headBlock.getWorld().getBlockAt(headBlock.getLocation()).setType(Material.PLAYER_HEAD);
+            SkinPair skin = SkinManager.getRandomFromGroup("christmas");
+            player.sendMessage("Picked random skin from group: " + skin.getSkinName());
+            PlayerProfile skinProfile = headSkull.getPlayerProfile();
+            PlayerTextures skinTextures = skinProfile.getTextures();
+            skinTextures.setSkin(new URL(skin.getClosed()));
+            player.sendMessage(new URL(skin.getClosed()).toString());
+//            ProfileProperty idProperty = new ProfileProperty("Id", UUID.randomUUID().toString());
+            skinProfile.setTextures(skinTextures);
+//            skinProfile.setProperty(idProperty);
+//            headSkull.setPlayerProfile(skinProfile);
+            headSkull.setOwnerProfile(skinProfile);
+            player.sendMessage("Update success: " + headSkull.update(false));
+
+        }
     }
 
 }
