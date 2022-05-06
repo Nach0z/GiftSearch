@@ -22,3 +22,35 @@ presents:
     red2:
       open: "2ea87a6641b21dbb31b04ad5fead5e3e033bb91fbe832b7c712a88618944"
       closed: "2a236de4602d24d3f2aeb8a4227d30b15ebba81f8b64cbc59aebe172154"
+  easter:
+    # you might notice these all share the same "open".
+    blue:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "b154ba42d2822f56534e755827892e4719deef328abb59584be6967f25f48cb4"
+    orange:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "fd6b606ee35552b223f137639915c9625335aa4b9d09d6c0c17bb75d2db4f09"
+    pink:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "eceddc23f9d96baaa0d2d7b9ec180cd7bea5447d39c425ca9e44d8808ea11ea0"
+    red:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "6e32a7de7a672cc68fa7a272baa6a89ebd440c32dcf44e77057068989042f7c6"
+    orangepink:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "5b3e03639922a51f268e856fbb0dd4c19d206878b1ce6b5addc6b9f8f42fadcd"
+    gold:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "9f55c505d7f00135b5f5225b75cd92ed12201cc95c41deed8a77da8fd6b7b963"
+    teal:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "fb734421bf980ba1b755c7a36f6dd6c9fa4977a1289c9fab46442420e245c636"
+    pink2:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "58b9e29ab1a795e2b887faf1b1a31025e7cc3073330afec375393b45fa335d1"
+    green:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "b2cd5df9d7f1fa8341fcce2f3c118e2f517e4d2d99df2c51d61d93ed7f83e13"
+    pink3:
+      open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
+      closed: "5ffed7ac15d67ec5a4cb92367f9d75432eb16105aff2c291c88946c7478fcb5"

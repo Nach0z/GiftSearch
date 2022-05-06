@@ -74,13 +74,7 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
 
     private void registerPacketListener() {
         ProtocolManager manager = ProtocolLibrary.getProtocolManager();
-        manager.addPacketListener(new PacketAdapter(this, ListenerPriority.NORMAL, PacketType.Play.Server.TILE_ENTITY_DATA) {
-            @Override
-            public void onPacketSending(PacketEvent event) {
-                event.getPlayer().sendMessage("Tile entity updated: " + event.getPacket().toString());
-                super.onPacketSending(event);
-            }
-        });
+        manager.addPacketListener(new PlayerPacketSendEvent(this, ListenerPriority.NORMAL, PacketType.Play.Server.TILE_ENTITY_DATA));
     }
 
     private void registerEvents() {
