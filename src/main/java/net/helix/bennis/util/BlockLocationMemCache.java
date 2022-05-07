@@ -34,6 +34,13 @@ public class BlockLocationMemCache {
 
     public static void removeBlock(Location location) {
         allGifts.remove(location);
+        // if we've run out of gifts that are located in the same chunk as the Location that was just removed...
+        if(allGifts.entrySet().stream().noneMatch(x -> new Pair<Integer, Integer>(x.getValue().getChunk().getX(), x.getValue().getChunk().getZ())
+                .equals(new Pair<Integer,Integer>(location.getChunk().getX(), location.getChunk().getZ()))))
+        {
+            // ... go ahead and remove that chunk from the memcache.
+            giftChunks.remove(new Pair<Integer, Integer>(location.getChunk().getX(), location.getChunk().getZ()));
+        }
     }
 
     public static Set<Block> getBlocksWithinChunkRadius(Chunk playerChunk) {

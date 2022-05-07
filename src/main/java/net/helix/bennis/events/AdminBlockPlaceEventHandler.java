@@ -23,8 +23,7 @@ import org.bukkit.profile.PlayerTextures;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import static net.helix.bennis.util.Constants.METADATA_GIFTBLOCK_GROUP;
-import static net.helix.bennis.util.Constants.METADATA_IS_GIFTBLOCK;
+import static net.helix.bennis.util.Constants.*;
 
 public class AdminBlockPlaceEventHandler implements Listener {
     // first check should be the block type, second should be whether the player has admin perms. After that check to make sure the main hand is holding the tool.
@@ -45,16 +44,18 @@ public class AdminBlockPlaceEventHandler implements Listener {
             groupName = handItem.getItemMeta().getPersistentDataContainer().get(new NamespacedKey(GiftSearchPlugin.getPlugin(), METADATA_GIFTBLOCK_GROUP), groupStringTag);
 //            event.getPlayer().sendMessage("Overrode default group using tool item group: " + groupName);
         }
+        String skin = SkinManager.getRandomSkinNameFromGroup(groupName);
         Block headBlock = event.getBlockPlaced();
         MetadataValue mv = new FixedMetadataValue(GiftSearchPlugin.getPlugin(), true);
         MetadataValue mv2 = new FixedMetadataValue(GiftSearchPlugin.getPlugin(), groupName);
+        MetadataValue mv3 = new FixedMetadataValue(GiftSearchPlugin.getPlugin(), skin);
         headBlock.setMetadata(METADATA_IS_GIFTBLOCK, mv);
         headBlock.setMetadata(METADATA_GIFTBLOCK_GROUP, mv2);
+        headBlock.setMetadata(METADATA_GIFTBLOCK_SKIN_NAME, mv3);
 //        event.getPlayer().sendMessage("placed block metadata set");
 
         Skull headSkull = (Skull) headBlock.getState(); //.getWorld().getBlockAt(headBlock.getLocation()).getState();
         headBlock.setType(Material.PLAYER_HEAD);
-        String skin = SkinManager.getRandomSkinNameFromGroup(groupName);
         PlayerProfile skinProfile = SkinManager.getNewClosedProfile(groupName, skin);
         headSkull.setPlayerProfile(skinProfile);
         headSkull.update();

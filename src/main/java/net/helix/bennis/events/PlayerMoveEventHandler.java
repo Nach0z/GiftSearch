@@ -20,8 +20,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static net.helix.bennis.util.Constants.METADATA_GIFTBLOCK_GROUP;
-import static net.helix.bennis.util.Constants.METADATA_IS_GIFTBLOCK;
+import static net.helix.bennis.util.Constants.*;
 
 public class PlayerMoveEventHandler implements Listener {
 
@@ -33,25 +32,37 @@ public class PlayerMoveEventHandler implements Listener {
         event.getPlayer().sendMessage(String.format("Moved from chunk %s to %s", event.getFrom().getChunk().toString(), event.getTo().getChunk().toString()));
         Set<Block> nearbyGifts = BlockLocationMemCache.getBlocksWithinChunkRadius(event.getTo().getChunk(), 8);
         //nearbyGifts.forEach(x -> event.getPlayer().sendMessage("Found gift at " + x.getLocation().toString()));
-        String groupName = SkinManager.getRandomGroupName();
-        for(Block presentBlock : nearbyGifts) {
-            List<MetadataValue> metadatas = presentBlock.getMetadata(METADATA_GIFTBLOCK_GROUP);
-            var giftblockGroup = metadatas.stream().filter(x -> x.getOwningPlugin().equals(GiftSearchPlugin.getPlugin())).findFirst();
-            if(giftblockGroup.isPresent())
-                groupName = giftblockGroup.get().asString();
-            /*
+        for(Block nearbyBlock : nearbyGifts) {
+            Block presentBlock = nearbyBlock.getWorld().getBlockAt(nearbyBlock.getLocation());
+            String groupName = null;
+            String skinName = null;
+            var isGiftblockMeta = presentBlock.getMetadata(METADATA_IS_GIFTBLOCK).stream()
+                    .filter(x -> x.getOwningPlugin().equals(GiftSearchPlugin.getPlugin()))
+                    .findFirst();
+            if(!isGiftblockMeta.isPresent() || !isGiftblockMeta.get().asBoolean()) return; // no giftblock? no change.
+            event.getPlayer().sendMessage("Found a giftblock");
+            var giftGroupMeta = presentBlock.getMetadata(METADATA_GIFTBLOCK_GROUP).stream()
+                    .filter(x -> x.getOwningPlugin().equals(GiftSearchPlugin.getPlugin()))
+                    .findFirst();
+            if(!giftGroupMeta.isPresent()) return; // if we don't have a group name we can't get the skin.
+            else {
+                groupName = giftGroupMeta.get().asString();
+                event.getPlayer().sendMessage("Found a group");
+            }
+            var skinNameMeta = presentBlock.getMetadata(METADATA_GIFTBLOCK_SKIN_NAME).stream()
+                    .filter(x -> x.getOwningPlugin().equals(GiftSearchPlugin.getPlugin()))
+                    .findFirst();
+            if(!skinNameMeta.isPresent()) return; // can't switch skins without a skin name either.
+            else {
+                skinName = skinNameMeta.get().asString();
+                event.getPlayer().sendMessage("Found a skin name");
+            }
+
+            PlayerProfile openedProfile = SkinManager.getNewOpenedProfile(groupName, skinName);
             Skull headSkull = (Skull) presentBlock.getState(); //.getWorld().getBlockAt(headBlock.getLocation()).getState();
             presentBlock.setType(Material.PLAYER_HEAD);
-            String skin = SkinManager.getRandomSkinNameFromGroup(groupName);
-            PlayerProfile skinProfile = SkinManager.getNewOpenedProfile(groupName, skin);
-            headSkull.setPlayerProfile(skinProfile);
+            headSkull.setPlayerProfile(openedProfile);
             headSkull.update();
-             */
-
-            event.getPlayer().sendMessage(presentBlock.getMetadata(METADATA_IS_GIFTBLOCK).toString());
-            event.getPlayer().sendMessage(presentBlock.getMetadata(METADATA_GIFTBLOCK_GROUP).toString());
-            event.getPlayer().sendMessage(presentBlock.getWorld().getBlockAt(presentBlock.getLocation()).getMetadata(METADATA_IS_GIFTBLOCK).toString());
-            event.getPlayer().sendMessage(presentBlock.getWorld().getBlockAt(presentBlock.getLocation()).getMetadata(METADATA_GIFTBLOCK_GROUP).toString());
         }
     }
 }

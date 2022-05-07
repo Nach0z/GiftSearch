@@ -54,3 +54,23 @@ presents:
     pink3:
       open: "14dc66466cad2da1746bd2dd62006ce93d27de44805f68126430f56d3e86e216"
       closed: "5ffed7ac15d67ec5a4cb92367f9d75432eb16105aff2c291c88946c7478fcb5"
+  halloween:
+    # "closed" pumpkins are unlit, "open" pumpkins are lit. When you find a pumpkin it gets lit up.
+    happy:
+      open: "2c8afbfe3fbdbdd54ee91afea91a73cfc666352c27e706f2c392140f7203128a"
+      closed: "50af3238f63ab20c59b158f4047beb55db116d1a9498aea4b9ae581990ff8d17"
+    slime:
+      open: "be4830033ad2a57838b6c98ba4d2bea6dda79d7a06e10cba2d4f4e0082f7278"
+      closed: "9512bb5c7813609fab6d6e71d365f20a967d7006e9c2fb1bffb29cabc90db456"
+    sad:
+      open: "d35cd11c5771c957a1311724511ce630e0b94dd3f93675e83a42ba061dd2e3"
+      closed: "913245706adaa8af8adc8bfff5cc2205588fc2888427e711246b759a71ad926"
+    owo:
+      open: "7a8bd185d3518c866c82bc465cca74d02d8cc68864cb6e3aba49e436d878cba1"
+      closed: "6bb25ad3e415c48236ebc49b955cdf80e1b5888cd4e5115bdc2fb711f7d901f2"
+    creepy1:
+      open: "395afd0198bc3a183ec9db6f8dc865cdd4110492c74f89e59d50b1108c8fa0ea"
+      closed: "7d48b078c587bc1172282ff3df75711aade6a598e555c010dab005be391391f5"
+    creepy2:
+      open: "d5112e8226ffd3b34c41d5f087d9584a8768fe72e85d70e43c721075258ed242"
+      closed: "b4d1eddeac830d9dea12b888997b289fa84b69c901f2c5744af975fc494ebe3"

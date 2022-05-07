@@ -15,6 +15,7 @@ public final class Constants {
 
     public static final String METADATA_IS_GIFTBLOCK = "isGiftBlock";
     public static final String METADATA_GIFTBLOCK_GROUP = "giftBlockGroup";
+    public static final String METADATA_GIFTBLOCK_SKIN_NAME = "giftSkinName";
 
     public static final String MINECRAFT_TEXTURE_PREFIX = "http://textures.minecraft.net/texture/";
 }

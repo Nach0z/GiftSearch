@@ -46,6 +46,12 @@ public class GiftSearchCommands extends BaseCommand     {
     public void tool(@Flags("self") Player player, String groupName) {
         if(groupName == null)
             groupName = SkinManager.getRandomGroupName();
+        String finalGroupName = groupName;
+        if(SkinManager.getAllGroups().stream().noneMatch(x -> x.equals(finalGroupName)))
+        {
+            player.sendMessage(MESSAGE_PREFIX + COLOR_PROBLEM + String.format(ERR_NO_SUCH_GROUP, groupName));
+            return;
+        }
         if(player.getInventory().getItemInMainHand().getType() != Material.AIR) {
             player.sendMessage(MESSAGE_PREFIX + COLOR_PROBLEM + "Can't give item - command must be used with an empty main hand.");
             return;
