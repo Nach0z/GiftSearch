@@ -55,7 +55,7 @@ public class AdminBlockPlaceEventHandler implements Listener {
 //        event.getPlayer().sendMessage("placed block metadata set");
 
         Skull headSkull = (Skull) headBlock.getState(); //.getWorld().getBlockAt(headBlock.getLocation()).getState();
-        headBlock.setType(Material.PLAYER_HEAD);
+//        headBlock.setType(Material.PLAYER_HEAD);
         PlayerProfile skinProfile = SkinManager.getNewClosedProfile(groupName, skin);
         headSkull.setPlayerProfile(skinProfile);
         headSkull.update();

@@ -4,26 +4,14 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.ListenerPriority;
-import com.comphenix.protocol.events.PacketAdapter;
-import com.comphenix.protocol.events.PacketEvent;
 import kr.entree.spigradle.annotations.PluginMain;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.experimental.Accessors;
 import net.helix.bennis.commands.GiftSearchCommands;
 import net.helix.bennis.events.*;
 import net.helix.bennis.util.BlockLocationMemCache;
 import net.helix.bennis.util.skins.SkinManager;
-import net.milkbowl.vault.chat.Chat;
-import net.milkbowl.vault.economy.Economy;
 // import net.silthus.template.integrations.vault.VaultProvider;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.InvalidConfigurationException;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.java.JavaPluginLoader;
@@ -31,7 +19,6 @@ import org.bukkit.plugin.java.JavaPluginLoader;
 import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.logging.Level;
 
 @PluginMain
@@ -74,7 +61,8 @@ public class GiftSearchPlugin  extends JavaPlugin implements Listener {
 
     private void registerPacketListener() {
         ProtocolManager manager = ProtocolLibrary.getProtocolManager();
-        manager.addPacketListener(new PlayerPacketSendEvent(this, ListenerPriority.NORMAL, PacketType.Play.Server.TILE_ENTITY_DATA));
+        manager.addPacketListener(new TileEntityPacketSendEvent(this, ListenerPriority.NORMAL, PacketType.Play.Server.TILE_ENTITY_DATA));
+        manager.addPacketListener(new UnnamedPacketSendEvent(this, PacketType.Play.Server.BLOCK_CHANGE ));
     }
 
     private void registerEvents() {

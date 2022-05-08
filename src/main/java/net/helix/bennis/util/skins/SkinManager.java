@@ -51,7 +51,7 @@ public class SkinManager {
     }
 
     public static SkinPair getNamedFromGroup(String groupName, String presentName) {
-        Set<SkinPair> matchedSkins = pluginSkins.get(groupName).stream().filter(x -> x.getSkinName() == presentName).collect(Collectors.toCollection(HashSet::new));
+        Set<SkinPair> matchedSkins = pluginSkins.get(groupName).stream().filter(x -> x.getSkinName().equals(presentName)).collect(Collectors.toCollection(HashSet::new));
         // we only need one, and duplicate skin names would be Bad.
         return (SkinPair) matchedSkins.toArray()[0];
     }
