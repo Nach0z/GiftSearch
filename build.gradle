@@ -82,6 +82,8 @@ dependencies {
     // https://mvnrepository.com/artifact/org.javatuples/javatuples
     implementation 'org.javatuples:javatuples:1.2'
     compileOnly  "com.comphenix.protocol:ProtocolLib:4.8.0";
+//    compileOnly
+    compileOnly files("C:\\Develop\\paper\\CraftBukkit\\target\\craftbukkit-1.18.1-R0.1-SNAPSHOT.jar")
 
     // Test dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'

@@ -64,17 +64,37 @@ public class TileEntityPacketSendEvent extends PacketAdapter {
 //        for(var value : event.getPacket().getBlockPositionModifier().getValues()) {
 //            event.getPlayer().sendMessage(value.toString());
 //        }
-        event.getPlayer().sendMessage("§a------------------------------------- BEGIN TILE ENTITY UPDATE ---------------------------");
-        event.getPlayer().sendMessage("§aModifier info:",
-            event.getPacket().getModifier().toString(),
-            event.getPacket().getModifier().getFields().toArray().length + "");
-        for(Field field : event.getPacket().getModifier().getFields()) {
-            event.getPlayer().sendMessage(field.toString());
-        }
-        for(var value : event.getPacket().getModifier().getValues()) {
-            event.getPlayer().sendMessage(value == null ? "NULL VALUE" : value.toString());
-        }
-        event.getPlayer().sendMessage("§a------------------------------------- END TILE ENTITY UPDATE ---------------------------");
+//        event.getPlayer().sendMessage("§a------------------------------------- BEGIN TILE ENTITY UPDATE ---------------------------");
+//        event.getPlayer().sendMessage("§aModifier info:",
+//            event.getPacket().getModifier().toString(),
+//            event.getPacket().getModifier().getFields().toArray().length + "");
+//        for(Field field : event.getPacket().getModifier().getFields()) {
+//            event.getPlayer().sendMessage(field.toString());
+//        }
+//        for(var value : event.getPacket().getModifier().getValues()) {
+//            event.getPlayer().sendMessage(value == null ? "NULL VALUE" : value.toString());
+//        }
+//        event.getPlayer().sendMessage("§aEntity info:",
+//            event.getPacket().getEntityModifier(event.getPlayer().getWorld()).toString(),
+//            event.getPacket().getEntityModifier(event.getPlayer().getWorld()).getFields().toArray().length + "");
+//        for(Field field : event.getPacket().getEntityModifier(event.getPlayer().getWorld()).getFields()){
+//            event.getPlayer().sendMessage(field.toString());
+//        }
+//        for(var value : event.getPacket().getEntityModifier(event.getPlayer().getWorld()).getValues()) {
+//            event.getPlayer().sendMessage(value == null ? "NULL VALUE" : value.toString());
+//        }
+//
+//        event.getPlayer().sendMessage("§aEntity Type info:",
+//            event.getPacket().getEntityTypeModifier().toString(),
+//            event.getPacket().getEntityTypeModifier().getFields().toArray().length + "");
+//        for(Field field : event.getPacket().getEntityTypeModifier().getFields()) {
+//            event.getPlayer().sendMessage(field.toString());
+//        }
+//        for(var value : event.getPacket().getEntityTypeModifier().getValues()) {
+//            event.getPlayer().sendMessage(value == null ? "NULL VALUE" : value.toString());
+//        }
+//        FURNACE
+//        event.getPlayer().sendMessage("§a------------------------------------- END TILE ENTITY UPDATE ---------------------------");
 
     }
 }

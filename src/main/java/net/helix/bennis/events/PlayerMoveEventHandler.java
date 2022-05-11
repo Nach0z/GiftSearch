@@ -1,8 +1,10 @@
 package net.helix.bennis.events;
 
 import com.comphenix.protocol.PacketType;
+import com.comphenix.protocol.PacketTypeEnum;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.utility.MinecraftReflection;
 import com.comphenix.protocol.wrappers.BlockPosition;
@@ -18,12 +20,16 @@ import net.helix.bennis.util.BlockLocationMemCache;
 import net.helix.bennis.util.skins.SkinManager;
 import net.helix.bennis.util.tags.BooleanTagType;
 import net.helix.bennis.util.tags.StringTagType;
+import net.minecraft.world.level.block.entity.TileEntitySkull;
+import net.minecraft.world.level.block.entity.TileEntityTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.Skull;
+import org.bukkit.block.TileState;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -91,15 +97,23 @@ public class PlayerMoveEventHandler implements Listener {
 //            container.set(new NamespacedKey(GiftSearchPlugin.getPlugin(), METADATA_IS_GIFTBLOCK), new BooleanTagType(), true);
 //            container.set(new NamespacedKey(GiftSearchPlugin.getPlugin(), METADATA_GIFTBLOCK_GROUP), new StringTagType(), groupName);
 //            container.set(new NamespacedKey(GiftSearchPlugin.getPlugin(), METADATA_GIFTBLOCK_SKIN_NAME), new StringTagType(), skinName);
-            PlayerProfile textureProfile = SkinManager.getNewOpenedProfile("christmas", "gold");
+            PlayerProfile textureProfile = SkinManager.getNewOpenedProfile(groupName, skinName);
             toolMeta.setPlayerProfile(textureProfile);
             toolItem.setItemMeta(toolMeta);
 
 
 
+//            PacketContainer blockUpdateContainer = new PacketContainer(PacketType.Play.Server.BLOCK_CHANGE);
+//            blockUpdateContainer.getBlockPositionModifier().write(0, new BlockPosition(nearbyBlock.getLocation().toVector()));
+//            WrappedBlockData blockData = WrappedBlockData.createData(Material.PLAYER_HEAD, 10);
+//            blockUpdateContainer.getBlockData().write(0, blockData);
+//            ProtocolLibrary.getProtocolManager().sendServerPacket(event.getPlayer(), blockUpdateContainer, true);
+
             NbtCompound nbt = NbtFactory.asCompound(NbtFactory.fromItemTag(MinecraftReflection.getBukkitItemStack(toolItem)));
             PacketContainer skinContainer = new PacketContainer(PacketType.Play.Server.TILE_ENTITY_DATA);
             skinContainer.getNbtModifier().write(0, nbt);
+//            skinContainer.getEntityModifier().write(0, TileEntitySkull.class);
+            skinContainer.getModifier().write(1, TileEntityTypes.o);
             skinContainer.getBlockPositionModifier().write(0, new BlockPosition(nearbyBlock.getLocation().toVector()));
 //            ProtocolLibrary.getProtocolManager().sendServerPacket(event.getPlayer(), blockContainer, true);
             ProtocolLibrary.getProtocolManager().sendServerPacket(event.getPlayer(), skinContainer, true);
